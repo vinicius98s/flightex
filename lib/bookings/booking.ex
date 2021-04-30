@@ -5,9 +5,7 @@ defmodule Flightex.Bookings.Booking do
 
   defstruct @keys
 
-  def build(%NaiveDateTime{} = date, origin_city, destination_city, user_id) do
-    id = UUID.uuid4()
-
+  def build(id, %NaiveDateTime{} = date, origin_city, destination_city, user_id) do
     {:ok,
      %__MODULE__{
        id: id,
@@ -18,5 +16,6 @@ defmodule Flightex.Bookings.Booking do
      }}
   end
 
-  def build(_date, _origin_city, _destination_city, _user_id), do: {:error, "Invalid parameters"}
+  def build(_id, _date, _origin_city, _destination_city, _user_id),
+    do: {:error, "Invalid parameters"}
 end

@@ -2,14 +2,14 @@ defmodule Flightex.Bookings.Report do
   alias Flightex.Bookings.Agent, as: BookingsAgent
   alias Flightex.Bookings.Booking
 
-  def create(from_date, to_date) do
+  def create(from_date, to_date, filename \\ "report.csv") do
     bookings =
       BookingsAgent.get_all_bookings()
       |> Enum.filter(&compare_from_date(&1, from_date))
       |> Enum.filter(&compare_to_date(&1, to_date))
       |> Enum.map(&booking_string/1)
 
-    report_result(File.write("report.csv", bookings))
+    report_result(File.write(filename, bookings))
   end
 
   defp report_result(:ok), do: {:ok, "Report generated successfully"}
